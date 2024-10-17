@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc3lb4i8apm88"]
+
+[ext_resource type="Texture2D" uid="uid://bbaa2yh06ybm3" path="res://Assets/Imports/tail plateformeur youtube1/Objets divers/Decor_Statue.png" id="1_gd3c7"]
+[ext_resource type="Script" path="res://Scripts/changement_de_level.gd" id="2_k666m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fvne"]
+size = Vector2(83.6, 243.306)
+
+[node name="changement de level" type="Sprite2D"]
+position = Vector2(-1.99999, -6.00001)
+scale = Vector2(0.304688, 0.3125)
+texture = ExtResource("1_gd3c7")
+script = ExtResource("2_k666m")
+metadata/_edit_group_ = true
+
+[node name="porte" type="Area2D" parent="."]
+position = Vector2(3.28208, -3.2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="porte"]
+position = Vector2(82.1333, 2.1157)
+shape = SubResource("RectangleShape2D_4fvne")
+
+[connection signal="body_entered" from="porte" to="." method="_on_porte_body_entered"]

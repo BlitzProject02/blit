@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://citynl6xgia2x"]
+
+[ext_resource type="Script" path="res://Scripts/character_body_2d.gd" id="1_4qgxb"]
+[ext_resource type="Texture2D" uid="uid://dcf4wmxk2wjql" path="res://Assets/Imports/brackeys_platformer_assets/sprites/knight.png" id="1_ykccl"]
+[ext_resource type="Script" path="res://Scripts/knight.gd" id="2_itgum"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rpkkr"]
+size = Vector2(13, 22)
+
+[node name="PLAYER2" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_4qgxb")
+
+[node name="Knight" type="Sprite2D" parent="."]
+position = Vector2(70, 45)
+texture = ExtResource("1_ykccl")
+hframes = 8
+vframes = 8
+script = ExtResource("2_itgum")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Knight"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_rpkkr")
+
+[node name="Camera2D" type="Camera2D" parent="Knight"]
+zoom = Vector2(2.5, 2.5)

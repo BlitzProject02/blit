@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlqeyygvxnvqd"]
+
+[ext_resource type="Texture2D" uid="uid://dcf4wmxk2wjql" path="res://Assets/Imports/brackeys_platformer_assets/sprites/knight.png" id="1_gjc2u"]
+
+[sub_resource type="GDScript" id="GDScript_shbto"]
+script/source = "extends CharacterBody2D
+
+
+@export var SPEED = 300.0
+@export var JUMP_VELOCITY = -400.0
+
+
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+#ONREADY
+@onready var animation_player: AnimationPlayer = $PARAMETRE/ANIMATION/AnimationPlayer
+@onready var knight: Sprite2D = $Knight
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"jump\") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis(\"left\",\"Right\")
+	print(direction)
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74r5c"]
+size = Vector2(12, 19)
+
+[node name="player" type="CharacterBody2D"]
+script = SubResource("GDScript_shbto")
+metadata/_edit_group_ = true
+
+[node name="Knight" type="Sprite2D" parent="."]
+position = Vector2(124, 142)
+texture = ExtResource("1_gjc2u")
+hframes = 8
+vframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(124, 144.5)
+shape = SubResource("RectangleShape2D_74r5c")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(125, 147)
+zoom = Vector2(2.5, 2.5)
+limit_left = -150
+limit_bottom = 1250
